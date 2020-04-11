@@ -24,7 +24,7 @@ class InBoundMessageController extends Controller
 
         'helplines' => "These are the Covid-19 official toll free helplines: \n 0800203033 or 919",
 
-        "help" => "I use keywords to fint an appropriate answer to your question. Try questions containing any of these keywords: \n - helplines \n - symptoms \n - prevent, prevention, preventive. \n That is what I can provide for now. \n You also get updates or the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n **made by Bonstana**"
+        "help" => "I use keywords to find an appropriate answer to your question. Try questions containing any of these keywords: \n - helplines \n - symptoms \n - prevent, prevention, preventive. \n\n That is what I can provide for now. \n You also get updates on the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n *Made by Bonstana*"
         ];
 
     public function index(Request $req) {
