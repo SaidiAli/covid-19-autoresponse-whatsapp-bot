@@ -25,18 +25,6 @@ class InBoundMessageController extends Controller
         'helplines' => "These are the Covid-19 official toll free helplines: \n 0800203033 or 919"
         ];
 
-    protected $symptoms= [
-        'High fever',
-        'Consistent Cough',
-        'Difficulty in breathing',
-        'Severe and constant pain in the chest',
-        'coughing up blood',
-        'Runny of stuffy nose',
-        'Sore throat',
-        'Muscle aches, body aches or headache',
-        ''
-    ];
-
     public function index(Request $req) {
         if (strtolower($req->getMethod()) == 'get') {
             $sid = env('TWILIO_SID');
@@ -65,7 +53,7 @@ class InBoundMessageController extends Controller
             if(count($message_arr) == 1) {
                 foreach ($message_arr as $value) {
                     if(\in_array(strtolower($value), $this->greetings)) {
-                        $response->message("Hello there, this is the covid-19 auto-response bot that provides accurate information as given by the government of Uganda. \n It also has cool features like forwarding tweets from the ministry of health twitter account. Please feel free to ask any questions to get instant answers. \n These are the covid-19 toll free lines: \n 0800203033 \n Stay Home, Stay safe.");
+                        $response->message("Hello there, this is the covid-19 auto-response bot that provides accurate information as given by the government of Uganda. \n It also has cool features like forwarding tweets from the ministry of health twitter account. Please feel free to ask any questions to get instant answers. \n These are the covid-19 toll free lines: \n 0800203033 \n Stay Home, Stay safe. \n - by Bonstana");
                     }
                 }
             }
