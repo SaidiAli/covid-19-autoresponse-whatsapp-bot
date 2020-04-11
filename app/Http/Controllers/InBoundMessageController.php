@@ -22,7 +22,9 @@ class InBoundMessageController extends Controller
 
         "preventive" => "These are some of the ways you can prevent yourself from the deadly coronavirus:\n - The incubation period for the novel coronavirus is between 2 - 14 days. Understanding the incubation period is very important for health authorities as it allows them to introduce more effective quarantine systems for people suspected of carrying the virus.\n - Also wash your hands regularly and frequently with soap or alcohol based solution for a period not less than 20 seconds. This will the virus if contracted wothout you knowing. \n - Prevent yourself from touching the soft parts of your body including the mouth, nose and eyes. This can be effected by wearing a certified face mask.\n Keep a social distance from people and crowds. This is very important.",
 
-        'helplines' => "These are the Covid-19 official toll free helplines: \n 0800203033 or 919"
+        'helplines' => "These are the Covid-19 official toll free helplines: \n 0800203033 or 919",
+
+        "help" => "I use keywords to fint an appropriate answer to your question. Try questions containing any of these keywords: \n - helplines \n - symptoms \n - prevent, prevention, preventive. \n That is what I can provide for now. \n You also get updates or the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n **made by Bonstana**"
         ];
 
     public function index(Request $req) {
