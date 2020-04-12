@@ -24,7 +24,7 @@ class InBoundMessageController extends Controller
 
         'helplines' => "These are the Covid-19 official toll free helplines: \n 0800203033 or 919",
 
-        "help" => "This is the covid-19 auto-response bot that provides accurate information as given by the government of Uganda. I use keywords to find an appropriate answer to your question. Try questions containing any of these keywords: \n - helplines \n - symptoms \n - prevent, prevention, preventive. \n\n That is what I can provide for now. \n You also get updates on the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n *Made by Bonstana*"
+        "help" => "This is the covid-19 auto-response bot that provides accurate information as given by the government of Uganda. I use keywords to find an appropriate answer to your question. Try questions containing any of these keywords: \n - helplines \n - symptoms \n - prevent, prevention, preventive.\n - update or updates \n\n That is what I can provide for now. \n You also get updates on the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n *Made by Bonstana*"
         ];
 
     public function index(Request $req) {
@@ -47,7 +47,7 @@ class InBoundMessageController extends Controller
             if(count($message_arr) == 1) {
                 foreach ($message_arr as $value) {
                     if(\in_array(strtolower($value), $this->greetings)) {
-                        $response->message("Hello there, this is the covid-19 auto-response bot that provides accurate information as given by the government of Uganda. \n It also has cool features like forwarding tweets from the ministry of health twitter account. Please feel free to ask any questions to get instant answers. \n These are the covid-19 toll free lines: \n 0800203033 \n Stay Home, Stay safe. \n - by Bonstana");
+                        $response->message("Hello there, this is the covid-19 auto-response bot that provides accurate information as given by the government of Uganda. \n It also has cool features like forwarding tweets from the ministry of health twitter account. Please feel free to ask any questions to get instant answers. \n These are the covid-19 toll free lines: \n 0800203033 \n Stay Home, Stay safe. \n - *Made by Bonstana*");
                     }
                 }
             }
