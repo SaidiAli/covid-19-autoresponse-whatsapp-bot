@@ -59,7 +59,7 @@ class InBoundMessageController extends Controller
                     }else if(strtolower($message) == 'rdc') {
                         return response($this->rdc_link, 200, ['Content-Type' => 'text/xml']);
                     }else if(strtolower($message) == 'update' or strtolower($message) == 'updates'){
-                        return response($covid_summary, 200, ['Content-Type' => 'text/xml']);
+                        $response->message($covid_summary);
                     }else {
                         continue;
                     }
