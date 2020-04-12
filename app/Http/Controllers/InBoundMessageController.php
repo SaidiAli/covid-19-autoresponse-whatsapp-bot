@@ -28,21 +28,6 @@ class InBoundMessageController extends Controller
         ];
 
     public function index(Request $req) {
-        if (strtolower($req->getMethod()) == 'get') {
-            $sid = env('TWILIO_SID');
-            $token = env('TWILIO_TOKEN');
-            $twilio = new Client($sid, $token);
-
-            $message = $twilio->messages->create(
-                'whatsapp:+256777343212',
-                [
-                    'from' => 'whatsapp:+14155238886',
-                    'body' => 'Hello from twilio laravel'
-                ]
-            );
-
-            return $message->sid;
-        }
 
         try {
             $response = new MessagingResponse();

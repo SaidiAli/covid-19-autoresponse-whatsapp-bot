@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'InBoundMessageController@index');
+Route::get('/', 'OutBoundMessageController@index');
 Route::post('/', 'InBoundMessageController@index');
