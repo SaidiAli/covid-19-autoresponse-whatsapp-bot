@@ -37,7 +37,7 @@ class InBoundMessageController extends Controller
                 $data[] = $key . ' : ' . $value . "\n";
             }
 
-            $covid_summary = "Here is a summary of the situation: " . implode("\n", $data);
+            $covid_summary = "Here is a summary of the situation: ";
 
             $body = $req->Body;
             $message_arr = explode(' ', trim($body));
