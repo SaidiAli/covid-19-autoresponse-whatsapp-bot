@@ -37,7 +37,7 @@ class InBoundMessageController extends Controller
                 $data[] = $key . ' : ' . $value . "\n";
             }
 
-            $covid_summary = "Here is a summary of the situation: ";
+            $covid_summary = "Here is a summary of the situation: " . implode("\n", $data);
 
             $body = $req->Body;
             $message_arr = explode(' ', trim($body));
@@ -59,8 +59,10 @@ class InBoundMessageController extends Controller
                         $response->message($value);
                     }else if(strtolower($message) == 'rdc') {
                         return response($this->rdc_link, 200, ['Content-Type' => 'text/xml']);
-                    }else if(strtolower($message) == 'update' or strtolower($message) == 'updates'){
+                    }else if(strtolower($message) == 'updates'){
                         $response->message($covid_summary);
+                    }else {
+                        continue;
                     }
                 }
             }
