@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Twilio\TwiML\MessagingResponse;
-use Twilio\Rest\Client;
+use Illuminate\Support\Facades\Http;
 class InBoundMessageController extends Controller
 {
     // Globals
@@ -31,6 +31,12 @@ class InBoundMessageController extends Controller
 
         try {
             $response = new MessagingResponse();
+            $covid_res = Http::get('https://api.covid19api.com/summary')->json();
+
+            foreach ($covid_res['Global'] as $key => $value) {
+                $msg[] = $key . ' : ' . $value . "\n";
+            }
+            $covid_summary = "Here is a summary of the situation: " . implode("\n", $msg);
 
             $body = $req->Body;
             $message_arr = explode(' ', trim($body));
@@ -52,8 +58,9 @@ class InBoundMessageController extends Controller
                         $response->message($value);
                     }else if(strtolower($message) == 'rdc') {
                         return response($this->rdc_link, 200, ['Content-Type' => 'text/xml']);
-                    }
-                    else {
+                    }else if(strtolower($message) == 'update' or strtolower($message) == 'updates'){
+                        return response($covid_summary, 200, ['Content-Type' => 'text/xml']);
+                    }else {
                         continue;
                     }
                 }
