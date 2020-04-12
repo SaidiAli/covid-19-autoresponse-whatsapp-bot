@@ -18,8 +18,9 @@ class OutBoundMessageController extends Controller
         $twilio = new Client($sid, $token );
 
         $response = Http::get('https://api.covid19api.com/summary')->json();
+        $arr_res = $response['Global'];
 
-        foreach ($response['Global'] as $key => $value) {
+        foreach ($arr_res as $key => $value) {
             $msg[] = $key.' : '. $value . "\n";
         }
         $message = "Here is the summary for the covid-19 situation as of today: \n" . implode("\n", $msg);
