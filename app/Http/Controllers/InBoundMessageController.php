@@ -34,9 +34,10 @@ class InBoundMessageController extends Controller
             $covid_res = Http::get('https://api.covid19api.com/summary')->json();
 
             foreach ($covid_res['Global'] as $key => $value) {
-                $msg[] = $key . ' : ' . $value . "\n";
+                $data[] = $key . ' : ' . $value . "\n";
             }
-            $covid_summary = "Here is a summary of the situation: " . implode("\n", $msg);
+
+            $covid_summary = "Here is a summary of the situation: " . implode("\n", $data);
 
             $body = $req->Body;
             $message_arr = explode(' ', trim($body));
@@ -60,8 +61,6 @@ class InBoundMessageController extends Controller
                         return response($this->rdc_link, 200, ['Content-Type' => 'text/xml']);
                     }else if(strtolower($message) == 'update' or strtolower($message) == 'updates'){
                         $response->message($covid_summary);
-                    }else {
-                        continue;
                     }
                 }
             }

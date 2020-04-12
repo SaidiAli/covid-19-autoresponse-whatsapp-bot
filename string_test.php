@@ -7,5 +7,7 @@ $arr = [
 
 $str = implode(' ', $arr);
 foreach ($arr as $key => $value) {
-    print_r($key.' : '. $value."\n");
+    $a[] = $key . ' : ' . $value . "\n";
 }
+
+print_r(implode("\n", $a));
