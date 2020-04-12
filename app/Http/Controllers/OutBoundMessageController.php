@@ -14,7 +14,7 @@ class OutBoundMessageController extends Controller
 
     public function index() {
         $sid = env('TWILIO_SID');
-        $token = env('TWILIO_TOKEN');
+        $token = env('TWILIO_TKN');
         $twilio = new Client($sid, $token );
 
         $response = Http::get('https://api.covid19api.com/summary')->json();

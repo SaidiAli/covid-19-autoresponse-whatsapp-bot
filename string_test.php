@@ -10,4 +10,4 @@ foreach ($arr as $key => $value) {
     $a[] = $key . ' : ' . $value . "\n";
 }
 
-print_r(implode("\n", $a));
+print_r(env('TWILIO_TOKEN'));
