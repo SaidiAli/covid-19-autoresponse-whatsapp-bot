@@ -38,7 +38,11 @@ class OutBoundMessageController extends Controller
                 ]
             );
 
-            return $message->sid;
+        // Send out the message. 
+        $message->sid;
+
+        return view('message-sent');
+        
         }
     }
 }
