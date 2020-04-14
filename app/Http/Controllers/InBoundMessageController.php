@@ -24,7 +24,7 @@ class InBoundMessageController extends Controller
 
         'helplines' => "These are the Covid-19 official toll free helplines: \n 0800203033 or 919",
 
-        "help" => "This is the covid-19 auto-response bot that provides accurate information as given by the government of Uganda. I use keywords to find an appropriate answer to your question. Try questions containing any of these keywords: \n - helplines \n - symptoms \n - prevent, prevention, preventive.\n - update or updates \n\n That is what I can provide for now. \n You also get updates on the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n *Made by Bonstana*"
+        "help" => "This is the covid-19 auto-response bot that provides accurate information from gurateed trusted sources. I use keywords to find an appropriate answer to your question. Phase a question with any of these keywords to get an awesome response: \n \xF0\x9F\x91\x8A helplines - to get the covid-19 toll free lines \n \xF0\x9F\x91\x8A symptoms - to get infor on the symptoms of the disease and how to protest yourself \n \xF0\x9F\x91\x8A prevent, prevention, preventive - you probably guessed what that does already \n \xF0\x9F\x91\x8A update or updates - to get realtime update on the numbers on covid cases global and Uganda \n \xF0\x9F\x91\x8A help - get this same damn message again.\n\n That is what I can provide for now. \n You also get updates on the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n *Made by Bonstana*"
         ];
 
     public function index(Request $req) {
