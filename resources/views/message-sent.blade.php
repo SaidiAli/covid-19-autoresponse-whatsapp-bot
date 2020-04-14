@@ -1,4 +1,4 @@
-@extend('layout.app')
+@extends('layout.app')
 
 @section('home')
     <div style="font-size: 2rem; color: #d2691e">
