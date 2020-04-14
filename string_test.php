@@ -6,8 +6,7 @@ $arr = [
 ];
 
 $str = implode(' ', $arr);
-foreach ($arr as $key => $value) {
-    $a[] = $key . ' : ' . $value . "\n";
-}
 
-print_r(env('TWILIO_TOKEN'));
+    if(!(in_array(4, $arr))) {
+        print_r('works');
+    }

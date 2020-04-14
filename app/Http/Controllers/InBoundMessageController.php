@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Twilio\TwiML\MessagingResponse;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Arr;
 class InBoundMessageController extends Controller
 {
     // Globals
@@ -14,7 +15,7 @@ class InBoundMessageController extends Controller
     protected $rdc_link = "<Response><Message>Here is a direct link to all the contacts of the RDC's of Uganda. Reach out to get any assistance. <![CDATA[http://www.nrmnationalchairman.com/all-rdcs-contact-list/]]></Message></Response>";
 
     protected $key_words = [
-        "symptoms" => "Theses are some of the symptoms for the covid-19 disease: \n - Fever\n - Fatigue\n - Dry and consistent Cough\n - Difficulty in breathing \n - Runny or stuffy nose.\n - Muscle aches, body aches or headaches. \n if you\'re experiencing any of these, please see a medical personel or call on the ministry of Health toll free lines to get aid: \n 0800203033 or 919",
+        "symptoms" => "Theses are some of the symptoms for the covid-19 disease: \n - Fever\n - Fatigue\n - Dry and consistent Cough\n - Difficulty in breathing \n - Runny or stuffy nose.\n - Muscle aches, body aches or headaches. \n if you're experiencing any of these, please see a medical personel or call on the ministry of Health toll free lines to get aid: \n 0800203033 or 919",
 
         "prevent" => "These are some of the ways you can prevent yourself from the deadly coronavirus:\n - The incubation period for the novel coronavirus is between 2 - 14 days. Understanding the incubation period is very important for health authorities as it allows them to introduce more effective quarantine systems for people suspected of carrying the virus.\n - Also wash your hands regularly and frequently with soap or alcohol based solution for a period not less than 20 seconds. This will the virus if contracted wothout you knowing. \n - Prevent yourself from touching the soft parts of your body including the mouth, nose and eyes. This can be effected by wearing a certified face mask.\n Keep a social distance from people and crowds. This is very important.",
 
@@ -25,6 +26,10 @@ class InBoundMessageController extends Controller
         'helplines' => "These are the Covid-19 official toll free helplines: \n 0800203033 or 919",
 
         "help" => "This is the covid-19 auto-response bot that provides accurate information from gurateed trusted sources. I use keywords to find an appropriate answer to your question. Phase a question with any of these keywords to get an awesome response: \n \xF0\x9F\x91\x89 helplines - to get the covid-19 toll free lines \n \xF0\x9F\x91\x89 symptoms - to get infor on the symptoms of the disease and how to protest yourself \n \xF0\x9F\x91\x89 prevent, prevention, preventive - you probably guessed what that does already \n \xF0\x9F\x91\x89 update or updates - to get realtime update on the numbers on covid cases global and Uganda \n \xF0\x9F\x91\x89 help - get this same damn message again.\n \xF0\x9F\x91\x89 rdc - to get the contact list of all RDCs in Uganda \n\n That is what I can provide for now. \n You also get updates on the current situation and also receive tweets direct from the account of the Ministry of Health of the Republic of Uganda. \n Stay safe, Stay home. \n *Made by Bonstana* \xF0\x9F\x98\x8E"
+        ];
+
+        protected $all_keywords = [
+            'help', 'update', 'updates', 'symptoms', 'prevent', 'preventive', 'prevention', 'helplines', 'rdc', 'rdcs'
         ];
 
     public function index(Request $req) {
@@ -55,7 +60,7 @@ class InBoundMessageController extends Controller
                 foreach ($message_arr as $message) {
                     if (strtolower($message) == $key){
                         $response->message($value);
-                    }else if(strtolower($message) == 'rdc') {
+                    }else if(strtolower($message) == 'rdc' or strtolower($message) == 'rdcs') {
                         return response($this->rdc_link, 200, ['Content-Type' => 'text/xml']);
                     }else {
                         continue;
@@ -68,6 +73,12 @@ class InBoundMessageController extends Controller
                     $response->message($covid_summary);
             }
         }
+
+            if(!(Arr::has($this->all_keywords, $message_arr))) {
+                $response->message("Sorry I could not catch your question quite right.!! \n Please send 'help' to get instructions on how i can help. \n *Thank you*");
+            }
+
+
             Log::info('Sender Info: ', [
                 'from:' => $req->From,
                 'To: ' => $req->To,
