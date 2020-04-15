@@ -74,9 +74,9 @@ class InBoundMessageController extends Controller
             }
         }
 
-            if(!(Arr::has($this->all_keywords, $message_arr))) {
-                $response->message("Sorry I could not catch your question quite right.!! \xE2\x9A\xA0 \n Please send  ```'help'```  to get instructions on how i can help. \n *Thank you*");
-            }
+            // if(!(Arr::has($this->all_keywords, $message_arr))) {
+            //     $response->message("Sorry I could not catch your question quite right.!! \xE2\x9A\xA0 \n Please send  ```'help'```  to get instructions on how i can help. \n *Thank you*");
+            // }
 
 
             Log::info('Sender Info: ', [
