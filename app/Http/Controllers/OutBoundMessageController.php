@@ -9,7 +9,7 @@ use Twilio\Rest\Client;
 class OutBoundMessageController extends Controller
 {
     protected $sandbox_numbers = [
-        '+256777343212'
+        '+256777343212','+256704672670', '+256781557769'
     ];
 
     public function index() {
