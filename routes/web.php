@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OutBoundMessageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'OutBoundMessageController@index');
-Route::get('/send', 'OutBoundMessageController@send');
+Route::get('/updates', 'OutBoundMessageController@updates');
+Route::get('/news', 'OutBoundMessageController@news');
 Route::post('/', 'InBoundMessageController@index');

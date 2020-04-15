@@ -10,6 +10,10 @@
         <a class="link-btn" href="/send">Send a Message!!!</a>
     </div>
 
+    <div>
+        <a class="link-btn" href="/news">Send a News!!!</a>
+    </div>
+
     <footer class="footer">
         <small><i>app by <strong>Bonstana</strong></i></small>
     </footer>
