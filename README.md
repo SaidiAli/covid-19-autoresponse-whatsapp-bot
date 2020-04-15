@@ -27,6 +27,8 @@ These are the keywords:
 To use the bot you obviosly got to have whatsapp messenger installed either on pc or mobile.
 If that is all set, click this [link](https://wa.me/14155238886/?text=join%20chicken%2Dmix) below to join my twilio sandbox and enjoy.
 
+Send the pre-filled message and you are all set.
+
 ## Set up and Resources
 
 The app uses a couple of resources  for functionality:
