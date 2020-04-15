@@ -7,10 +7,10 @@
     </div>
 
     <div>
-        <a class="link-btn" href="/send">Send a Message!!!</a>
+        <a class="link-btn" href="/updates">Send a Message!!!</a>
     </div>
 
-    <div>
+    <div style="margin-top: 5rem;">
         <a class="link-btn" href="/news">Send a News!!!</a>
     </div>
 
