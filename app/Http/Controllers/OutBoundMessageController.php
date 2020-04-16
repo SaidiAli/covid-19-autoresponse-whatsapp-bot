@@ -29,7 +29,7 @@ class OutBoundMessageController extends Controller
             $articles_description = collect($us_news['articles'])->pluck('description')->first();
             $articles_url = collect($us_news['articles'])->pluck('url')->first();
 
-            $msg = "News Hour: \n Headline: ".$articles_title ."\n" .$articles_description. "\n Link: ". $articles_url;
+            $msg = "NEWS HOURS: \n *Headline:* \xF0\x9F\x91\x89".$articles_title ."\n\n" .$articles_description. "\n\n Link: ". $articles_url;
 
             foreach($this->sandbox_numbers as $contact) {
                 $message = $twilio->messages->create(

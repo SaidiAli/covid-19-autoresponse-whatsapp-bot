@@ -100,6 +100,11 @@
 
     <script>
         setInterval(() => {
+            fetch('https://frozen-basin-63569.herokuapp.com/news')
+            .then(res => console.log('Message sent'))
+        }, 1*60*60*1000);
+        
+        setInterval(() => {
             fetch('https://frozen-basin-63569.herokuapp.com/updates')
             .then(res => console.log('Message sent'))
         }, 4*60*60*1000);
