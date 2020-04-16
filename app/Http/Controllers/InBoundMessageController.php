@@ -78,7 +78,7 @@ class InBoundMessageController extends Controller
             return strtolower($item);
         })->all();
 
-        if(!(Arr::has($this->all_keywords, $message_array))) {
+        if(!(Arr::has($message_array, $this->all_keywords))) {
             $response->message("Sorry I could not catch your question quite right.!! \xE2\x9A\xA0 \n Please send  ```'help'```  to get instructions on how i can help. \n *Thank you*");
         }
 
