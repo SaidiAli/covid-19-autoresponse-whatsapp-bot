@@ -25,23 +25,24 @@ class OutBoundMessageController extends Controller
         $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey='.env('NEWS_API_KEY').'&q=coronavirus&category=health')->json();
 
         if($us_news['status'] == 'ok'){
-            $articles_title = collect($us_news['articles'])->pluck('title')->all()->first();
-            $articles_description = collect($us_news['articles'])->pluck('description')->all()->first();
-            $articles_url = collect($us_news['articles'])->pluck('url')->all()->first();
+            $articles_title = collect($us_news['articles'])->pluck('title')->first();
+            $articles_description = collect($us_news['articles'])->pluck('description')->first();
+            $articles_url = collect($us_news['articles'])->pluck('url')->first();
 
             $msg = "News Hour: \n Headline: ".$articles_title ."\n" .$articles_description. "\n Link: ". $articles_url;
 
-            $message = $twilio->messages->create(
-                'whatsapp:' . '+256777343212',
-                [
-                    'from' => 'whatsapp:+14155238886',
-                    'body' => $msg
-                ]
-            );
-
-            // Send out the message. 
-            $message->sid;
+            foreach($this->sandbox_numbers as $contact) {
+                $message = $twilio->messages->create(
+                    'whatsapp:' .  $contact,
+                    [
+                        'from' => 'whatsapp:+14155238886',
+                        'body' => $msg
+                    ]
+                );
+                $message->sid;
+            }        
         }
+
         return view('message-sent');
     }
 
@@ -68,10 +69,8 @@ class OutBoundMessageController extends Controller
             );
 
         // Send out the message. 
-        $message->sid;
-
-        return view('message-sent');
-        
+        $message->sid;        
         }
+        return view('message-sent');
     }
 }
