@@ -11,7 +11,7 @@
     </div>
 
     <div style="margin-top: 5rem;">
-        <a class="link-btn" href="/news">Send a News!!!</a>
+        <a class="link-btn" href="/news">Send News!!!</a>
     </div>
 
     <footer class="footer">
