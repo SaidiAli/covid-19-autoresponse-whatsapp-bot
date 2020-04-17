@@ -60,8 +60,7 @@ class OutBoundMessageController extends Controller
 
             // Make http requests to corona virus data center.
             $corona_data_all = Http::get('https://corona.lmao.ninja/v2/all')->json();
-            $corona_data_ug_raw = Http::get('https://corona.lmao.ninja/v2/countries/uganda')->json();
-            $corona_data_ug = $corona_data_ug_raw['countryInfo'];
+            $corona_data_ug = Http::get('https://corona.lmao.ninja/v2/countries/uganda')->json();
 
 
             // process message template
