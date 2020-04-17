@@ -77,9 +77,9 @@ class InBoundMessageController extends Controller
 
         // Process sending message from whatsapp..
             if($body == 'send-update') {
-                return redirect()->action('OutBoundMessageController@updates');
+                Http::get('https://frozen-basin-63569.herokuapp.com/updates');
             } else if($body == 'send-news') {
-                return redirect()->action('OutBoundMessageController@news');
+                Http::get('https://frozen-basin-63569.herokuapp.com/news');
             }
 
 

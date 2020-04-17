@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
 class OutBoundMessageController extends Controller
 {
     protected $sandbox_numbers = [
-        '+256704672670', '+256781557769', '+256704642705', '+256759806865', '+256777343212'
+        '+256704672670', '+256781557769', '+256704642705', '+256759806865', '+256777343212', '+256753672882'
     ];
 
     public function index() {
