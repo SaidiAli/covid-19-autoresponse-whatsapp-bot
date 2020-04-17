@@ -75,6 +75,15 @@ class InBoundMessageController extends Controller
             }
         }
 
+        // Process sending message from whatsapp..
+            if($body == 'send-update') {
+                return redirect()->action('OutBoundMessageController@updates');
+            } else if($body == 'send-news') {
+                return redirect()->action('OutBoundMessageController@news');
+            }
+
+
+
         // $message_array = collect($message_arr)->map(function ($item) {
         //     return strtolower($item);
         // })->all();
