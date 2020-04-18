@@ -24,18 +24,18 @@ class OutBoundMessageController extends Controller
             $token = env('TWILIO_TKN');
             $twilio = new Client($sid, $token);
 
-            $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey=' . env('NEWS_API_KEY') . '&q=coronavirus&category=health')->json();
+            $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey='.env('NEWS_API_KEY').'&q=coronavirus&category=health')->json();
 
             if ($us_news['status'] == 'ok') {
                 $articles_title = collect($us_news['articles'])->pluck('title')->first();
                 $articles_description = collect($us_news['articles'])->pluck('description')->first();
                 $articles_url = collect($us_news['articles'])->pluck('url')->first();
 
-                $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $articles_title . "\n\n" . $articles_description . "\n\n Link: " . $articles_url . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company``` \n\n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n*Stay Home, Stay Safe." ;
+                $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $articles_title . "\n\n" . $articles_description . "\n\n Link: " . $articles_url . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company``` \n\n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*" ;
 
                 foreach ($this->sandbox_numbers as $contact) {
                     $message = $twilio->messages->create(
-                        'whatsapp:' .  $contact,
+                        'whatsapp:'.$contact,
                         [
                             'from' => 'whatsapp:+14155238886',
                             'body' => $msg
@@ -80,7 +80,7 @@ class OutBoundMessageController extends Controller
             }
 
             return view('message-sent');
-    }catch(Exception $e) {
+    } catch(Exception $e) {
             // return view('welcome', ['exception' => $e->getMessage()]);
             return response('An exception occured: ' . $e->getMessage(), 500);
     }
