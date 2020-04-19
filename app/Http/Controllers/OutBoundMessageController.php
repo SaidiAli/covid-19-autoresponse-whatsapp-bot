@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
 class OutBoundMessageController extends Controller
 {
     protected $sandbox_numbers = [
-        '+256704672670', '+256781557769', '+256704642705', '+256759806865', '+256777343212', '+256753672882', '+256787911516'
+        '+256777343212', '+256753672882'
     ];
 
     public function index() {
@@ -27,11 +27,9 @@ class OutBoundMessageController extends Controller
             $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey='.env('NEWS_API_KEY').'&q=coronavirus&category=health')->json();
 
             if ($us_news['status'] == 'ok') {
-                $articles_title = collect($us_news['articles'])->pluck('title')->first();
-                $articles_description = collect($us_news['articles'])->pluck('description')->first();
-                $articles_url = collect($us_news['articles'])->pluck('url')->first();
+                $article = collect($us_news['articles'])->random();
 
-                $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $articles_title . "\n\n" . $articles_description . "\n\n Link: " . $articles_url . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company``` \n\n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*" ;
+                $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $article['title'] . "\n\n" . $article['description'] . "\n\n Link: " . $article['url'] . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company` - just a quote`` \n\n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*" ;
 
                 foreach ($this->sandbox_numbers as $contact) {
                     $message = $twilio->messages->create(
@@ -45,7 +43,7 @@ class OutBoundMessageController extends Controller
                 }
             }
 
-            return view('message-sent');
+            // return view('message-sent');
         } catch(Exception $e) {
             return response('An exception occured: '.$e->getMessage(), 500);
             // return view('welcome', ['exception' => $e->getMessage()]);
