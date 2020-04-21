@@ -84,6 +84,15 @@
                 margin-bottom: 60px;
             }
 
+            #form{
+                margin: 5rem 1rem 0 1rem;
+            }
+
+            #text-area {
+                padding: 1rem;
+                border: .1rem solid chocolate;
+            }
+
             .footer {
                 margin-top: 10rem;
                 text-align: center;

@@ -18,3 +18,4 @@ Route::get('/', 'OutBoundMessageController@index');
 Route::get('/updates', 'OutBoundMessageController@updates');
 Route::get('/news', 'OutBoundMessageController@news');
 Route::post('/', 'InBoundMessageController@index');
+Route::post('/send-message', 'OutBoundMessageController@send');

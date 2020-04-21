@@ -39,12 +39,13 @@ class InBoundMessageController extends Controller
             // Data for all countries
             $all_countries_data = Http::get('https://corona.lmao.ninja/v2/countries')->json();
             // an array for names of all countries.
-            $countries_arr = collect($all_countries_data)->pluck('country')->all();
+            $countries_arr = collect($all_countries_data)->pluck('country')->map(function ($item) {
+                return strtolower($item);
+            })->all();
 
             // Message body
             $body = $req->Body;
             $message_arr = explode(' ', trim($body));
-
 
             // Check for greeting from user
             if(count($message_arr) == 1) {
@@ -128,7 +129,7 @@ class InBoundMessageController extends Controller
 
             // Send Countries info
             foreach ($countries_arr as $value) {
-                if($value == $body) {
+                if($value == strtolower($body)) {
                     $country_data = Http::get('https://corona.lmao.ninja/v2/countries/' . $body)->json();
                     $msg = "*" . $country_data['country'] . " Summary:* \n\n *New Comfirmed:* " . $country_data['todayCases'] . "\n*Total Comfirmed:* " . $country_data['cases'] . "\n*New Deaths:* " . $country_data['todayDeaths'] . "\n*Total Deaths:* " . $country_data['deaths'] . "\n*Total Recovered:* " . $country_data['recovered'] . "\n\n Send any country's name and get the latest updates on their situation. \n\n \xE2\x80\xBC Send ```update``` to get a Global summary \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu \n\n *Stay Home, Stay Safe*";
 

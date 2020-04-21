@@ -94,4 +94,28 @@ class OutBoundMessageController extends Controller
             return response('An exception occured: ' . $e->getMessage(), 500);
     }
     }
+
+    public function send(Request $req) {
+        // var_dump($req->input('body'));
+        try {
+            $sid = env('TWILIO_SID');
+            $token = env('TWILIO_TKN');
+            $twilio = new Client($sid, $token);
+
+            foreach ($this->sandbox_numbers as $contact) {
+                $message = $twilio->messages->create(
+                    'whatsapp:' . $contact,
+                    [
+                        'from' => 'whatsapp:+14155238886',
+                        'body' => $req->body
+                    ]
+                );
+
+                // Send out the message. 
+                $message->sid;
+            }
+        } catch (\Exception $e) {
+            return response('An exception occured while sending message: ' . $e->getMessage(), 500);
+        }
+    }
 }
