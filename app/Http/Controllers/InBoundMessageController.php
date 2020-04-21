@@ -127,11 +127,14 @@ class InBoundMessageController extends Controller
             }
 
             // Send Countries info
-            if(Arr::has($countries_arr, $body)){
-                $country_data = Http::get('https://corona.lmao.ninja/v2/countries/'.$body)->json();
-                $msg = "*".$country_data['country']." Summary:* \n\n *New Comfirmed:* ".$country_data['todayCases']."\n*Total Comfirmed:* ".$country_data['cases']."\n*New Deaths:* ".$country_data['todayDeaths']."\n*Total Deaths:* ".$country_data['deaths']."\n*Total Recovered:* ".$country_data['recovered']. "\n\n Send any country's name and get the latest updates on their situation. \n\n \xE2\x80\xBC Send ```update``` to get a Global summary \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu \n\n *Stay Home, Stay Safe*";
+            foreach ($countries_arr as $value) {
+                if($value == $body) {
+                    $country_data = Http::get('https://corona.lmao.ninja/v2/countries/' . $body)->json();
+                    $msg = "*" . $country_data['country'] . " Summary:* \n\n *New Comfirmed:* " . $country_data['todayCases'] . "\n*Total Comfirmed:* " . $country_data['cases'] . "\n*New Deaths:* " . $country_data['todayDeaths'] . "\n*Total Deaths:* " . $country_data['deaths'] . "\n*Total Recovered:* " . $country_data['recovered'] . "\n\n Send any country's name and get the latest updates on their situation. \n\n \xE2\x80\xBC Send ```update``` to get a Global summary \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu \n\n *Stay Home, Stay Safe*";
 
-                $response->message($msg);
+                    $response->message($msg);
+                    break;
+                }
             }
 
         // Process sending message from whatsapp..
