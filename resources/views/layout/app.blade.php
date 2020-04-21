@@ -93,6 +93,14 @@
                 border: .1rem solid chocolate;
             }
 
+            .submit-btn {
+                height: 50px;
+                width: 80px;
+                border-radius: 5px;
+                border: 0;
+                background-color: chocolate;
+            }
+
             .footer {
                 margin-top: 10rem;
                 text-align: center;

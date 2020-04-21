@@ -14,15 +14,15 @@
         <a class="link-btn" href="/news">Send News!!!</a>
     </div>
 
-    {{-- <div>
-        <form action="/send" method="post" id="form">
+    <div>
+        <form action="/send-message" method="post" id="form">
             @csrf
             <div>
                 <textarea name="body" id="text-area" placeholder="Write a message" rows="5" cols="30"></textarea>
-                <input type="submit" value="Send">
+                <input type="submit" value="Send" class="submit-btn">
             </div>
         </form>
-    </div> --}}
+    </div>
 
     <footer class="footer">
         <small><i>app by <strong>Bonstana</strong></i></small>
