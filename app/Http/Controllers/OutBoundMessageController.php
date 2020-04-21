@@ -117,6 +117,7 @@ class OutBoundMessageController extends Controller
                 // Send out the message. 
                 $message->sid;
             }
+            return back();
         } catch (\Exception $e) {
             return response('An exception occured while sending message: ' . $e->getMessage(), 500);
         }

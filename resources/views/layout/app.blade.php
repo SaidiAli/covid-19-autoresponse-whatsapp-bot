@@ -85,7 +85,7 @@
             }
 
             #form{
-                margin: 5rem 1rem 0 1rem;
+                margin: 3rem 1rem 0 1rem;
             }
 
             #text-area {
@@ -94,9 +94,9 @@
             }
 
             .submit-btn {
-                height: 50px;
-                width: 80px;
-                border-radius: 5px;
+                height: 3rem;
+                width: 4.5rem;
+                border-radius: .1rem;
                 border: 0;
                 background-color: chocolate;
             }

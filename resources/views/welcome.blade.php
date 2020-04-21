@@ -18,7 +18,8 @@
         <form action="/send-message" method="post" id="form">
             @csrf
             <div>
-                <textarea name="body" id="text-area" placeholder="Write a message" rows="5" cols="30"></textarea>
+                <label for="body">Send a Message: </label> <br>
+                <textarea name="body" id="text-area" placeholder="the message ..." rows="5" cols="30"></textarea> <br>
                 <input type="submit" value="Send" class="submit-btn">
             </div>
         </form>
