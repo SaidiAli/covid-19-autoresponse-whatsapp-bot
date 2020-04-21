@@ -34,7 +34,12 @@ class InBoundMessageController extends Controller
     public function index(Request $req) {
 
         try {
+            // Twilio whatsapp response message instance
             $response = new MessagingResponse();
+            // Data for all countries
+            $all_countries_data = Http::get('https://corona.lmao.ninja/v2/countries')->json();
+            // an array for names of all countries.
+            $countries_arr = collect($all_countries_data)->pluck('country')->all();
 
             // Message body
             $body = $req->Body;
@@ -119,6 +124,14 @@ class InBoundMessageController extends Controller
                         )->sid;
                     }
                 }
+            }
+
+            // Send Countries info
+            if(Arr::has($countries_arr, $body)){
+                $country_data = Http::get('https://corona.lmao.ninja/v2/countries/'.$body)->json();
+                $msg = "*".$country_data['country']." Summary:* \n\n *New Comfirmed:* ".$country_data['todayCases']."\n*Total Comfirmed:* ".$country_data['cases']."\n*New Deaths:* ".$country_data['todayDeaths']."\n*Total Deaths:* ".$country_data['deaths']."\n*Total Recovered:* ".$country_data['recovered']. "\n\n Send any country's name and get the latest updates on their situation. \n\n \xE2\x80\xBC Send ```update``` to get a Global summary \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu \n\n *Stay Home, Stay Safe*";
+
+                $response->message($msg);
             }
 
         // Process sending message from whatsapp..
