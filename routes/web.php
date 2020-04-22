@@ -19,3 +19,7 @@ Route::get('/updates', 'OutBoundMessageController@updates');
 Route::get('/news', 'OutBoundMessageController@news');
 Route::post('/', 'InBoundMessageController@index');
 Route::post('/send-message', 'OutBoundMessageController@send');
+
+// Auth routes
+Route::get('/login', 'LoginController@index');
+Route::post('/login', 'LoginController@login')->name('login');
