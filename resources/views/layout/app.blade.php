@@ -8,87 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                display: flex;
-                justify-content: center;
-            }
-            .content {
-            }
-
-            .title {
-                font-size: 84px;
-                color: chocolate;
-                text-align: center;
-            }
-
-            .title > p{
-                margin-top: 0;
-                font-size: 20px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .link-btn {
-                color: #636b6f;
-                padding: 1.5rem;
-                font-size: 14px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-                border: .1rem solid black;
-                border-radius: 5rem;
-            }
-
-            .link-btn:hover {
-                color: white;
-            }
-            a {
-                color: #636b6f;
-                text-decoration: none;
-            }
-            a:hover {
-                text-decoration: none;
-            }
-
-            .link-btn:hover {
-                background-color: chocolate;
-            }
-
-            .m-b-md {
-                margin-top: 10rem;
-                margin-bottom: 60px;
-            }
-
-            .footer {
-                margin-top: 10rem;
-                text-align: center;
-            }
-        </style>
+        <link rel="stylesheet" href="{{asset('/css/styles.css')}}">
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -97,16 +17,4 @@
             </div>
         </div>
     </body>
-
-    <script>
-        // setInterval(() => {
-        //     fetch('https://frozen-basin-63569.herokuapp.com/news')
-        //     .then(res => console.log('Message sent'))
-        // }, 1*60*60*1000);
-        
-        // setInterval(() => {
-        //     fetch('https://frozen-basin-63569.herokuapp.com/updates')
-        //     .then(res => console.log('Message sent'))
-        // }, 4*60*60*1000);
-    </script>
 </html>

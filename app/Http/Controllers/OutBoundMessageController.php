@@ -7,12 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Twilio\Rest\Client;
 use Illuminate\Support\Arr;
+use Twilio\TwiML\MessagingResponse;
 
 class OutBoundMessageController extends Controller
 {
     protected $sandbox_numbers = [
-        '+256777343212', '+256753672882'
+        '+256704672670', '+256781557769', '+256704642705', '+256759806865', '+256777343212', '+256753672882', '+256787911516', '+256781729644', '+256706818239', '+256750783581', '+256788041987'
     ];
+
+    // protected $sandbox_numbers = [
+    //     '+256777343212', '+256753672882'
+    // ];
 
     public function index() {
         return view('welcome');
@@ -24,12 +29,19 @@ class OutBoundMessageController extends Controller
             $token = env('TWILIO_TKN');
             $twilio = new Client($sid, $token);
 
-            $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey='.env('NEWS_API_KEY').'&q=coronavirus&category=health')->json();
+            $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey=' . env('NEWS_API_KEY') . '&q=coronavirus&category=health')->json();
 
             if ($us_news['status'] == 'ok') {
+<<<<<<< HEAD
                 $article = collect($us_news['articles'])->random();
 
                 $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $article['title'] . "\n\n" . $article['description'] . "\n\n Link: " . $article['url'] . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company` - just a quote`` \n\n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*" ;
+=======
+                // fetch a random article
+                $article = collect($us_news['articles'])->random();
+
+                $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $article['title'] . "\n\n" . $article['description'] . "\n\n Link: " . $article['url'] . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company - just a quote``` \n\n \xE2\x80\xBC Send ```news``` to get a news article anytime you feel like \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*";
+>>>>>>> master
 
                 foreach ($this->sandbox_numbers as $contact) {
                     $message = $twilio->messages->create(
@@ -41,6 +53,15 @@ class OutBoundMessageController extends Controller
                     );
                     $message->sid;
                 }
+            } else {
+                // send feedback
+                $twilio->messages->create(
+                    'whatsapp:+256753672882',
+                    [
+                        'from' => 'whatsapp:+14155238886',
+                        'body' => "The newsApi just crushed, check it out .... !! Status is not ok"
+                    ]
+                )->sid;
             }
 
             // return view('message-sent');
@@ -82,5 +103,29 @@ class OutBoundMessageController extends Controller
             // return view('welcome', ['exception' => $e->getMessage()]);
             return response('An exception occured: ' . $e->getMessage(), 500);
     }
+    }
+
+    public function send(Request $req) {
+        try {
+            $sid = env('TWILIO_SID');
+            $token = env('TWILIO_TKN');
+            $twilio = new Client($sid, $token);
+
+            foreach ($this->sandbox_numbers as $contact) {
+                $message = $twilio->messages->create(
+                    'whatsapp:' . $contact,
+                    [
+                        'from' => 'whatsapp:+14155238886',
+                        'body' => $req->input('body')
+                    ]
+                );
+
+                // Send out the message. 
+                $message->sid;
+            }
+            return back();
+        } catch (\Exception $e) {
+            return response('An exception occured while sending message: ' . $e->getMessage(), 500);
+        }
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Twilio\TwiML\MessagingResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Arr;
+use Twilio\Rest\Client;
 class InBoundMessageController extends Controller
 {
     // Globals
@@ -33,18 +34,24 @@ class InBoundMessageController extends Controller
     public function index(Request $req) {
 
         try {
+            // Twilio whatsapp response message instance
             $response = new MessagingResponse();
+            // Data for all countries
+            $all_countries_data = Http::get('https://corona.lmao.ninja/v2/countries')->json();
+            // an array for names of all countries.
+            $countries_arr = collect($all_countries_data)->pluck('country')->map(function ($item) {
+                return strtolower($item);
+            })->all();
 
             // Message body
             $body = $req->Body;
             $message_arr = explode(' ', trim($body));
 
-
             // Check for greeting from user
             if(count($message_arr) == 1) {
                 foreach ($message_arr as $value) {
                     if(\in_array(strtolower($value), $this->greetings)) {
-                        $response->message("*Welcome to the WhatsAppCovidBot*\n\nThis is the covid-19 auto-response bot that provides accurate information from trusted sources. \nI use *keywords* to find an appropriate answer to your question. Phrase a question with any of these keywords to get a response or just send the word: \n\n \xF0\x9F\x91\x89 *helplines* - to get the covid-19 toll free lines \xF0\x9F\x93\x9E \n \xF0\x9F\x91\x89 *symptoms* - to get infor on the symptoms of the disease and how to protest yourself \n \xF0\x9F\x91\x89 *prevent, prevention, preventive* - you probably guessed what that does already \n \xF0\x9F\x91\x89 *update or updates* - to get realtime updates on the numbers on covid-19 cases global and Uganda \n \xF0\x9F\x91\x89 *hi or help* - get this  message again.\n \xF0\x9F\x91\x89 *rdc* - to get the contact list of all RDCs in Uganda \n\n You also get news on the current situation around the world. \n\n *Stay Home, Stay Safe* \n\n *Made by Bonstana* \xF0\x9F\x98\x8E");
+                        $response->message("*Welcome to the WhatsAppCovidBot*\n\nThis is the covid-19 auto-response bot that provides accurate information from trusted sources. \nI use *keywords* to find an appropriate answer to your question. Phrase a question with any of these keywords to get a response or just send the word: \n\n \xF0\x9F\x91\x89 *helplines* - to get the covid-19 toll free lines \xF0\x9F\x93\x9E \n \xF0\x9F\x91\x89 *symptoms* - to get infor on the symptoms of the disease and how to protest yourself \n \xF0\x9F\x91\x89 *prevent, prevention, preventive* - you probably guessed what that does already \n \xF0\x9F\x91\x89 *update or updates* - to get realtime updates on the numbers on covid-19 cases global and Uganda \n \xF0\x9F\x91\x89 *news* - to get a news article from top sources anytime \n \xF0\x9F\x91\x89 *hi or help* - get this  message again.\n \xF0\x9F\x91\x89 *rdc* - to get the contact list of all RDCs in Uganda \n\n You also get news on the current situation around the world. \n\n *Stay Home, Stay Safe* \n\n *Made by Bonstana* \xF0\x9F\x98\x8E");
                     }
                 }
             }
@@ -67,16 +74,74 @@ class InBoundMessageController extends Controller
                     $corona_data_all = Http::get('https://corona.lmao.ninja/v2/all')->json();
                     $corona_data_ug = Http::get('https://corona.lmao.ninja/v2/countries/uganda')->json();
 
-                    $covid_summary = "Here is the summary for the covid-19 situation as of today (Global): \n\n" . "New Confirmed: " . $corona_data_all['todayCases'] . "\n Total Confirmed: " . $corona_data_all['cases'] . "\n New Deaths: " . $corona_data_all['todayDeaths'] . "\n Total Deaths: " . $corona_data_all['deaths'] . " \u{1F622}\n Recovered: " . $corona_data_all['recovered'] . "\xF0\x9F\x92\xAA" . " \n Active: " . $corona_data_all['active'] . "\n Critical: " . $corona_data_all['critical'] . "\n\n" . "*Uganda Summary:* \n New Confirmed: " . $corona_data_ug['todayCases'] . "\n Total Confirmed: " . $corona_data_ug['cases'] . "\n New Deaths: " . $corona_data_ug['todayDeaths'] . "\n Total Deaths: " . $corona_data_ug['deaths'] . "\n Total Recovered: " . $corona_data_ug['recovered'] . "\xF0\x9F\x92\xAA" . "\n\n \xE2\x80\xBC Send ```update``` to get this message again \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu \n\n _data by:_\n thevirustracker.com \n worldometers.info \u{1F30F}\n\n brought to you by yours truly: *Bonstana* \xF0\x9F\x98\x8E";
+                    if ($corona_data_all['updated']) {
+                        $covid_summary = "Here is the summary for the covid-19 situation as of today (Global): \n\n" . "New Confirmed: " . $corona_data_all['todayCases'] . "\n Total Confirmed: " . $corona_data_all['cases'] . "\n New Deaths: " . $corona_data_all['todayDeaths'] . "\n Total Deaths: " . $corona_data_all['deaths'] . " \u{1F622}\n Recovered: " . $corona_data_all['recovered'] . "\xF0\x9F\x92\xAA" . " \n Active: " . $corona_data_all['active'] . "\n Critical: " . $corona_data_all['critical'] . "\n\n" . "*Uganda Summary:* \n New Confirmed: " . $corona_data_ug['todayCases'] . "\n Total Confirmed: " . $corona_data_ug['cases'] . "\n New Deaths: " . $corona_data_ug['todayDeaths'] . "\n Total Deaths: " . $corona_data_ug['deaths'] . "\n Total Recovered: " . $corona_data_ug['recovered'] . "\xF0\x9F\x92\xAA" . "\n\n \xE2\x80\xBC Send ```update``` to get this message again \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu \n\n _data by:_\n thevirustracker.com \n worldometers.info \u{1F30F}\n\n brought to you by yours truly: *Bonstana* \xF0\x9F\x98\x8E";
 
-                    $response->message($covid_summary);
+                        $response->message($covid_summary);
+                    } else {
+                        $response->message("Ooops, the server is a down temporarily, come back in a few and check again . \n\n Meanwhile you can checkout the other cool features \xF0\x9F\x98\x89 \n\n Send ```hi or hello``` to get a helper menu");
+
+                        $sid = env('TWILIO_SID');
+                        $token = env('TWILIO_TKN');
+                        $twilio = new Client($sid, $token);
+
+                        // send feedback
+                        $twilio->messages->create(
+                            'whatsapp:+256753672882',
+                            [
+                                'from' => 'whatsapp:+14155238886',
+                                'body' => "The corona api just crushed, check it out .... !! Status is not ok"
+                            ]
+                        )->sid;
+                    }
             }
         }
 
+            foreach ($message_arr as $value) {
+                if(strtolower($value) == 'news') {
+                    $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey=' . env('NEWS_API_KEY') . '&q=coronavirus&category=health')->json();
+
+                    if($us_news['status'] == 'ok') {
+                        // fetch a random article
+                        $article = collect($us_news['articles'])->random();
+
+                        $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $article['title'] . "\n\n" . $article['description'] . "\n\n Link: " . $article['url'] . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company - just a quote``` \n\n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*";
+
+                        $response->message($msg);
+                    } else {
+                        $response->message("Ooops, the server is a down temporarily, come back in a few and check again . \n\n Meanwhile you can checkout the other cool features \xF0\x9F\x98\x89 \n\n Send ```hi or hello``` to get a helper menu");
+
+                        $sid = env('TWILIO_SID');
+                        $token = env('TWILIO_TKN');
+                        $twilio = new Client($sid, $token);
+
+                        // send feedback
+                        $twilio->messages->create(
+                            'whatsapp:+256753672882',
+                            [
+                                'from' => 'whatsapp:+14155238886',
+                                'body' => "The newsApi just crushed, check it out .... !! Status is not ok"
+                            ]
+                        )->sid;
+                    }
+                }
+            }
+
+            // Send Countries info
+            foreach ($countries_arr as $value) {
+                if($value == strtolower($body)) {
+                    $country_data = Http::get('https://corona.lmao.ninja/v2/countries/' . $body)->json();
+                    $msg = "*" . $country_data['country'] . " Summary:* \n\n *New Comfirmed:* " . $country_data['todayCases'] . "\n*Total Comfirmed:* " . $country_data['cases'] . "\n*New Deaths:* " . $country_data['todayDeaths'] . "\n*Total Deaths:* " . $country_data['deaths'] . "\n*Total Recovered:* " . $country_data['recovered'] . "\n\n Send any country's name and get the latest updates on their situation. \n\n \xE2\x80\xBC Send ```update``` to get a Global summary \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu \n\n *Stay Home, Stay Safe*";
+
+                    $response->message($msg);
+                    break;
+                }
+            }
+
         // Process sending message from whatsapp..
-            if($body == 'Send-update') {
+            if($body == 'su') {
                 Http::get('https://frozen-basin-63569.herokuapp.com/updates');
-            } else if($body == 'Send-news') {
+            } else if($body == 'sn') {
                 Http::get('https://frozen-basin-63569.herokuapp.com/news');
             }
 
