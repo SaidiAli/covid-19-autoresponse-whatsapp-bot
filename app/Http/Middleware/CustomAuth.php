@@ -15,20 +15,10 @@ class CustomAuth
      */
     public function handle($request, Closure $next)
     {
-        if(!$this->validate($request)) {
-            return redirect('login');
+        if(is_null($request->cookie('user_saidi'))) {
+            return redirect('/register');
         }
-        
+
         return $next($request);
-    }
-
-    public function validate($request) {
-        if(empty($request->all())) {
-            return false;
-        }
-
-        if ($request->input('username') == 'saidiali' and $request->input('password') == 'megamanxx') {
-            return true;
-        }
     }
 }

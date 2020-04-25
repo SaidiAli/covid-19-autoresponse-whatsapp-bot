@@ -32,16 +32,10 @@ class OutBoundMessageController extends Controller
             $us_news = Http::get('https://newsapi.org/v2/top-headlines?country=us&apiKey=' . env('NEWS_API_KEY') . '&q=coronavirus&category=health')->json();
 
             if ($us_news['status'] == 'ok') {
-<<<<<<< HEAD
-                $article = collect($us_news['articles'])->random();
-
-                $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $article['title'] . "\n\n" . $article['description'] . "\n\n Link: " . $article['url'] . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company` - just a quote`` \n\n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*" ;
-=======
                 // fetch a random article
                 $article = collect($us_news['articles'])->random();
 
                 $msg = "*NEWS HOURS*: \n\n *Headline:* \xF0\x9F\x91\x89" . $article['title'] . "\n\n" . $article['description'] . "\n\n Link: " . $article['url'] . "\n\n ``` Social Distancing is an opportunity to check if you can tolerate your own company - just a quote``` \n\n \xE2\x80\xBC Send ```news``` to get a news article anytime you feel like \n \xE2\x80\xBC Send ```hi or hello``` to get a helper menu\n *Stay Home, Stay Safe*";
->>>>>>> master
 
                 foreach ($this->sandbox_numbers as $contact) {
                     $message = $twilio->messages->create(
