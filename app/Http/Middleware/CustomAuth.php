@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\User;
 
 class CustomAuth
 {
@@ -21,4 +22,9 @@ class CustomAuth
 
         return $next($request);
     }
+
+    public function fetchCredentials($request){
+        return User::firstWhere('name', $request->input('name'));
+    }
+
 }
