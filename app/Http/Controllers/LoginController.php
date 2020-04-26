@@ -42,7 +42,7 @@ class LoginController extends Controller
             return;
         }
 
-        if($request->input('name') == $user->name) {
+        if($request->input('name') == $user->name and Hash::check($request->input('password'), $user->password)) {
             return $user;
         }
 
@@ -62,6 +62,8 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request) {
-        // 
+        Cookie::queue('user_saidi', '');
+
+        return redirect('/login');
     }
 }

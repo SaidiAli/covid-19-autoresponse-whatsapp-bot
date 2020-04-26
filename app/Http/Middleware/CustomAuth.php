@@ -16,7 +16,7 @@ class CustomAuth
     public function handle($request, Closure $next)
     {
         if(is_null($request->cookie('user_saidi'))) {
-            return redirect('/register');
+            return redirect('/login');
         }
 
         return $next($request);
