@@ -16,11 +16,13 @@ The bot sends updates on the pandemic without even asking but you can also ask u
 These are the instructions on how to use it. The bot uses keywords to figure out what you want, if your question does not include any of the keywords, then it can not help.
 These are the keywords:
 
-- help - to get a help message containing the instructions
+- hi or hello - to get a helper menu containing the instructions
 - helplines - to get the toll free lines to the Ministry of Health of Uganda.
 - symptoms - to get the symptoms of the covid-19 disease.
 - prevent ( or an equivalent ) - to get some steps on how to prevent yourself from catching the coronavirus.
 - RDC - to get contacts of all RDCs In Uganda.
+- news - to get an exclusive news article on covid-19
+- Send any country's name to get a summary of their situation (try USA)
 
 ## How to use it
 
