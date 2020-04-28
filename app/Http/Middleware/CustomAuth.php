@@ -16,15 +16,10 @@ class CustomAuth
      */
     public function handle($request, Closure $next)
     {
-        if(is_null($request->cookie('user_saidi'))) {
+        if(is_null($request->cookie('user_'.env('USER_NAME')))) {
             return redirect('/login');
         }
 
         return $next($request);
     }
-
-    public function fetchCredentials($request){
-        return User::firstWhere('name', $request->input('name'));
-    }
-
 }

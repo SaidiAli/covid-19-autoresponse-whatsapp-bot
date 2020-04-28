@@ -27,7 +27,9 @@
     </div>
 
     <footer class="footer">
-        <small><i>app by <strong>Bonstana</strong></i></small>
+        <small><i>app by <strong>Bonstana</strong></i></small><br>
+        <hr>
+        <a href="/login">Logout</a>
     </footer>
 </div>
 @endsection

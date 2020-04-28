@@ -9,7 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    protected $user;
+    protected $user = [];
+
+    public function __construct()
+    {
+        array_push($this->user, env('USER_NAME'), env('PASSWORD'));
+    }
 
     public function index()
     {
@@ -20,7 +25,7 @@ class LoginController extends Controller
         $this->validator($request);
 
         if($this->checkCredentials($request)) {
-            Cookie::queue('user_' . $this->getName($request), $request->input('password'));
+            Cookie::queue('user_' . $this->user[0], $this->user[1]);
 
             return redirect('/');
         }
@@ -36,25 +41,15 @@ class LoginController extends Controller
     }
 
     public function checkCredentials($request) {
-        $user = $this->retrieveByCredentials($request);
-
-        if(is_null($user)) {
+        if(is_null($this->user)) {
             return;
         }
 
-        if($request->input('name') == $user->name and Hash::check($request->input('password'), $user->password)) {
-            return $user;
+        if($request->input('name') == $this->user[0] and $request->input('password') == $this->user[1]) {
+            return $this->user;
         }
 
         return false;
-    }
-
-    public function retrieveByCredentials($request) {
-        $user = User::firstWhere('name' , $this->getName($request));
-
-        $this->user = $user;
-
-        return $user;
     }
 
     public function getName($request) {
@@ -62,7 +57,8 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request) {
-        Cookie::queue('user_saidi', '');
+        // Remove user cookie
+        setcookie('user_saidiali', '', 0 , '/');
 
         return redirect('/login');
     }

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'OutBoundMessageController@index');
+Route::get('/', 'OutBoundMessageController@index')->middleware('custom.auth');
 Route::get('/updates', 'OutBoundMessageController@updates');
 Route::get('/news', 'OutBoundMessageController@news');
 Route::post('/', 'InBoundMessageController@index');

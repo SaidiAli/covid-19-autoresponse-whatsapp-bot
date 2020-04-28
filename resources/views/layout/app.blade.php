@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="{{secure_asset('/css/styles.css')}}">
+        <link rel="stylesheet" href="{{asset('/css/styles.css')}}">
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -17,4 +17,5 @@
             </div>
         </div>
     </body>
+    <script src="{{asset('/js/main.js')}}"></script>
 </html>
