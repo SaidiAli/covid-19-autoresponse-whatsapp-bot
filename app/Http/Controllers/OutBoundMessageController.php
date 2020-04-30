@@ -11,16 +11,13 @@ use Twilio\TwiML\MessagingResponse;
 
 class OutBoundMessageController extends Controller
 {
-    protected $sandbox_numbers;
+    protected $sandbox_numbers = [
+        '+256704672670', '+256781557769', '+256704642705', '+256759806865', '+256777343212', '+256753672882', '+256787911516', '+256781729644', '+256706818239', '+256750783581', '+256788041987', '+242056906878', '+918847061139'
+    ];
 
     // protected $sandbox_numbers = [
     //     '+256777343212', '+256753672882'
     // ];
-
-    public function __construct()
-    {
-        $this->sandbox_numbers = config('contacts');
-    }
 
     public function index() {
         return view('welcome');
