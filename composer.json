@@ -1,10 +1,11 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The Laravel Framework.",
+    "name": "WhatsappCovidBot",
+    "type": "application",
+    "description": "The Whatsapp Covid-19 Helper Bot",
     "keywords": [
-        "framework",
-        "laravel"
+        "whatsapp",
+        "bot",
+        "covid-19"
     ],
     "license": "MIT",
     "require": {
