@@ -26,3 +26,6 @@ Route::post('/login', 'LoginController@login')->name('login');
 Route::get('/register', 'RegisterController@index');
 Route::post('/register', 'RegisterController@register')->name('register');
 Route::get('/logout', 'LoginController@logout')->name('logout');
+
+Route::get('/webhook/twitter', 'TwitterController@crc');
+Route::post('webhook/twitter', 'TwitterController@events');
